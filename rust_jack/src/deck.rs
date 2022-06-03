@@ -1,5 +1,6 @@
 use rand::Rng;
-use std::fmt::Debug;
+use std::fmt::{Display, Debug, Formatter, Result};
+use std::vec::Vec;
 
 #[derive(Debug)]
 pub enum Suit {
@@ -27,14 +28,36 @@ pub struct Card {
     pub suit: Suit,
 }
 
+impl Display for Card {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+        let card_value =
+            match self.value {
+                1 => String::from("Ace"),
+                11 => String::from("Jack"),
+                12 => String::from("Queen"),
+                13 => String::from("King"),
+                _ => self.value.to_string()
+            };
+        write!(f, "{} of {:?}", card_value, self.suit)
+    }
+}
+
 impl Card {
     pub fn rand() -> Card {
         let mut rng = rand::thread_rng();
         Card {
-            value: rng.gen_range(1..15),
+            value: rng.gen_range(1..14),
             suit: Suit::rand(),
         }
     }
+}
+
+pub fn print_cards(cards: &Vec<Card>) {
+    print!("|");
+    for card in cards {
+        print!(" {} |", card);
+    }
+    print!("\n");
 }
 
 #[derive(Debug)]
@@ -51,10 +74,8 @@ impl Deck {
         deck
     }
 
-    pub fn shuffle(&mut self) {
-        let shuffledDeck = Deck::new();
-        *self = shuffledDeck;
-        
+    pub fn shuffle(self) -> Deck {
+        Deck::new()
     }
 
     pub fn len(&self) -> usize {
