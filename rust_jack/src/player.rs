@@ -19,6 +19,10 @@ impl Player {
     }
   }
 
+  pub fn new_hand(&mut self) {
+    self.cards = vec![Card::rand(), Card::rand()]
+  }
+
   pub fn score_hand(&self) -> i8 {
     let mut total = 0;
     for card in &self.cards {

@@ -1,4 +1,5 @@
 use colored::*;
+use figlet_rs::FIGfont;
 
 mod deck;
 use deck::Deck;
@@ -8,31 +9,28 @@ use std::io::stdin;
 mod player;
 use player::Player;
 
+mod game;
+
 fn main() {
     welcome();
 
     let mut player = Player::new();
-    let dealer = Player::new();
+    let mut dealer = Player::new();
 
     println!("Enter your name: ");
-    let name = &mut String::new();
-    stdin().read_line(name).unwrap();
-    player.name = name.to_owned();
+    let mut name = String::new();
+    stdin().read_line(&mut name).unwrap();
+    player.name = name;
     println!("Welcome {}", player.name);
 
-    println!("Your cards are: ");
-    deck::print_cards(&player.cards);
-    println!("Score of: {}", player.score_hand());
-    println!("Dealer's cards are: ");
-    deck::print_cards(&dealer.cards);
+    game::game_loop(&mut player, &mut dealer);
 }
 
 fn welcome() {
-    println!(
-        "{} {}{} {}",
-        "Welcome to my",
-        "Black".black().bold(),
-        "jack".red().bold(),
-        "game!"
-    );
+    let standard_font = FIGfont::standand().unwrap();
+    let figure = standard_font.convert("Welcome to Rust Jack!");
+    assert!(figure.is_some());
+    println!("---------------------------------------------------------------------------------------------------------------------------------------------");
+    println!("{}", figure.unwrap());
+    println!("---------------------------------------------------------------------------------------------------------------------------------------------");
 }
