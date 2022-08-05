@@ -9,30 +9,42 @@ fn main() {
     // println!("Min: {}, Max: {}", tup.0, tup.1);
     // let answer = persistence(999999999999999);
     // print!("Answer: {}", answer);
-    let time = queue_time(&[1, 2, 3, 4, 5], 1);
-    println!("Total time: {}", time)
+    // let time = queue_time(&[1, 2, 3, 4, 5], 1);
+    // println!("Total time: {}", time)
+    // let hello = "";
+    // println!("{}", camel_case(hello));
 }
 
-fn queue_time(customers: &[u32], n: u32) -> u32 {
-    let n = n.try_into().unwrap();
-    let mut minutes = 0;
-    let mut tills: Vec<u32> = vec![0; n];
-    let mut vec_customers = customers.to_vec();
-    loop {
-        for i in 0..n {
-            if tills[i] > 0 {
-                tills[i] -= 1;
-            }
-            if vec_customers.len() > 0 && tills[i] == 0 {
-                tills[i] = vec_customers.remove(0)
-            }
-        }
-        if tills.clone().into_iter().sum::<u32>() == 0 && vec_customers.len() == 0 {
-            break minutes;
-        }
-        minutes += 1;
-    }
-}
+// fn camel_case(str: &str) -> String {
+//     str.split(' ')
+//         .map(|w| {
+//             w.get(..1).unwrap_or_default().to_ascii_uppercase()
+//                 + &w.get(1..).unwrap_or_default().to_string()
+//         })
+//         .collect::<Vec<String>>()
+//         .join("")
+// }
+
+// fn queue_time(customers: &[u32], n: u32) -> u32 {
+//     let n = n.try_into().unwrap();
+//     let mut minutes = 0;
+//     let mut tills: Vec<u32> = vec![0; n];
+//     let mut vec_customers = customers.to_vec();
+//     loop {
+//         for i in 0..n {
+//             if tills[i] > 0 {
+//                 tills[i] -= 1;
+//             }
+//             if vec_customers.len() > 0 && tills[i] == 0 {
+//                 tills[i] = vec_customers.remove(0)
+//             }
+//         }
+//         if tills.clone().into_iter().sum::<u32>() == 0 && vec_customers.len() == 0 {
+//             break minutes;
+//         }
+//         minutes += 1;
+//     }
+// }
 
 // fn min_max(list: &[i32]) -> (i32, i32) {
 //    (*list.iter().min().unwrap(), *list.iter().max().unwrap())
